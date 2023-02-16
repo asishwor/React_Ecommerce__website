@@ -1,0 +1,67 @@
+@use "./media" as *;
+
+.singlePage {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 20px;
+  @include mq(sm) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+  &__thumbnail {
+    & > img {
+      height: auto;
+      width: 100%;
+      @include mq(sm) {
+        border-radius: 10px;
+        height: 400px;
+      }
+    }
+    .images {
+      margin-top: 30px;
+      display: flex;
+      width: min(400px, 100%);
+      overflow-x: hidden;
+      position: relative;
+      img {
+        height: 90px;
+        width: calc(400px / 3);
+        cursor: pointer;
+      }
+      span {
+        position: absolute;
+        font-size: var(--fs-500);
+        border-radius: 50%;
+        color: var(--primary-color);
+        cursor: pointer;
+        background-color: var(--hover-color);
+        display: inline-flex;
+        line-height: 0;
+        align-items: center;
+        justify-content: center;
+        top: 50%;
+        transform: translate(0, -50%);
+        &:nth-of-type(1) {
+          left: 0;
+          padding: 14px 10px 16px 8px;
+        }
+        &:nth-of-type(2) {
+          right: 0;
+          padding: 14px 7px 16px 8px;
+        }
+      }
+    }
+  }
+  &__content {
+    h2 {
+      font-size: var(--fs-400);
+    }
+    padding-left: 0;
+    @include mq(sm) {
+      padding-left: 50px;
+      h2 {
+        font-size: var(--fs-900);
+      }
+    }
+  }
+}

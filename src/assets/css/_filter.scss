@@ -1,0 +1,40 @@
+@use "./media" as *;
+section {
+  @include mq(sm) {
+    padding: 50px 0;
+  }
+  padding: 30px 0;
+}
+.filter {
+  @include mq(sm) {
+    &__section {
+      padding-top: 40px;
+    }
+  }
+  &__content {
+    display: flex;
+  }
+  &__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    li {
+      margin-top: 10px;
+      padding: 10px 22px;
+      background-color: var(--hover-color);
+      color: var(--heading-font-color);
+      border-radius: 30px;
+      font-weight: 800;
+      transition: background-color 400ms linear;
+      &:not(:nth-of-type(1)) {
+        margin-left: 20px;
+      }
+      &:hover,
+      &:active {
+        background-color: var(--primary-color);
+        color: var(--body-bg-color);
+      }
+    }
+  }
+}

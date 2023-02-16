@@ -1,0 +1,18 @@
+@use "sass:map";
+
+// Media queries mixins
+$breakpoints: (
+  "xs": 450px,
+  "sm": 768px,
+  "lg": 991px,
+  "xl": 1200px,
+  "xxl": 1367px,
+);
+@mixin mq($width) {
+  @media (min-width: map-get($map: $breakpoints, $key:$width)) {
+    @content;
+  }
+}
+@mixin fs() {
+  font-size: 50px;
+}

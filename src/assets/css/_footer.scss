@@ -1,0 +1,82 @@
+@use "./media" as *;
+footer {
+  padding: 0 15px;
+  h3 {
+    font-size: var(--fs-300);
+    font-weight: 800;
+  }
+}
+.footer {
+  display: grid;
+  grid-template-columns: auto;
+  padding: 50px 0;
+  gap: 30px;
+  margin: 0 -15px;
+  margin-top: 30px;
+  border-top: 2px solid var(--primary-color);
+
+  @include mq(xs) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include mq(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include mq(xl) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  //   footer widget--1
+
+  &__w1 {
+    P{
+      font-size: 13px;
+      margin-top: 10px;
+    }
+  }
+  &__logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    h2 {
+      color: var(--primary-color);
+    }
+   
+    img {
+      margin-right: 10px;
+      height: 50px;
+    }
+  }
+  &__payment {
+    margin-top: 22px;
+    .payment {
+      &__title {
+      }
+      &__methods {
+        display: flex;
+        img {
+          width: 50px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  //   widget -2
+  &__w2 {
+    &-title {
+      padding-top: 15px;
+      padding-bottom: 17px;
+    }
+    &-list {
+      li {
+        font-size: 15px;
+      }
+      li:hover {
+        color: var(--green-color);
+      }
+      li:not(:nth-of-type(1)) {
+        padding-top: 15px;
+      }
+    }
+  }
+}

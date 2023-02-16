@@ -1,0 +1,188 @@
+@use "./media" as *; //mq. mixin import
+@forward "./cart";
+@forward "./_ads";
+@forward "./footer";
+@forward "./wishlist";
+@forward "./singlepage";
+@forward "./catagory";
+@use "../../components/header/_header";
+@forward "./filter";
+
+// font import
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@500;700&family=Nunito+Sans:wght@400;600;700;800;900&display=swap");
+*,
+*::after,
+*::before,
+ul,
+a {
+  list-style: none;
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  font-weight: inherit;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+@keyframes loading {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+.loading {
+  border: 5px solid var(--primary-color);
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 60px;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  width: 60px;
+  border-radius: 50%;
+  animation: loading 1s infinite linear;
+}
+
+img {
+  max-width: 100%;
+}
+*:hover {
+  transition: all 300ms ease-in;
+}
+body {
+  font-family: "Nunito Sans", sans-serif;
+  line-height: 1.3;
+  font-weight: 600;
+  font-size: 17px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Dosis", sans-serif;
+  font-weight: 700;
+  color: var(--heading-font-color);
+}
+.container {
+  padding: 0 15px;
+  margin: 0 auto;
+  max-width: 420px;
+  @include mq(xs) {
+    max-width: 765px;
+    width: 100%;
+  }
+  @include mq(sm) {
+    max-width: 995px;
+    width: 100%;
+  }
+  @include mq(lg) {
+    max-width: 1200px;
+    width: 100%;
+  }
+  @include mq(xxl) {
+    max-width: 1440px;
+    width: 100%;
+  }
+}
+button {
+  cursor: pointer;
+  transform-origin: left;
+}
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--body-bg-color);
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  &:hover {
+    background-color: var(--green-color);
+  }
+}
+.btn-secondary {
+  background-color: transparent;
+  color: var(--body-font-color);
+  border: 2px solid var(--body-font-color);
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  &:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+}
+$colors: (
+  "primary": #013d29,
+  "green": #0fa611,
+  "hover": #f5f7f9,
+  "heading-font": #191919,
+  "body-font": #645e61,
+  "body-bg": #ffffff,
+);
+$sizes: (
+  fs-100: 16px,
+  fs-200: 18px,
+  fs-300: 20px,
+  fs-400: 22px,
+  fs-500: 24px,
+  fs-600: 40px,
+  fs-700: 48px,
+  fs-800: 55px,
+  fs-900: 62px,
+);
+
+// root variables
+:root {
+  @each $key, $color in $colors {
+    --#{$key}-color: #{$color};
+  }
+  @each $font, $size in $sizes {
+    --#{$font}: #{$size};
+  }
+}
+
+h1 {
+  font-size: var(--fs-600);
+  @include mq("sm") {
+    font-size: var(--fs-700);
+  }
+}
+
+h2 {
+  font-size: var(--fs-500);
+  @include mq("sm") {
+    font-size: var(--fs-600);
+  }
+}
+
+h3 {
+  font-size: var(--fs-400);
+  @include mq("sm") {
+    font-size: var(--fs-500);
+  }
+}
+
+h4 {
+  font-size: var(--fs-300);
+  @include mq("sm") {
+    font-size: var(--fs-300);
+  }
+}
+h5 {
+  font-size: var(--fs-200);
+  @include mq("sm") {
+    font-size: var(--fs-200);
+  }
+}

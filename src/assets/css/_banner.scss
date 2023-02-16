@@ -1,0 +1,48 @@
+@use "./media" as *;
+.banner {
+  position: relative;
+  z-index: 30;
+  height: 400px;
+  .container{
+    position: relative;
+    height: 100%;
+  }
+  @include mq(sm) {
+    padding: 100px 0;
+    &__content {
+      margin-left: auto;
+      padding-right: 20px;
+    }
+  }
+  &__content {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0%, -50%);
+    padding-left: 20px;
+    width: min(530px, 100%);
+    button {
+      margin-top: 20px;
+    }
+  }
+  @include mq(sm) {
+    margin: 0;
+  }
+  h1 {
+    color: var(--primary-color);
+  }
+  &::after {
+    position: absolute;
+    background-image: url("/images/banner.jpg");
+    // background-blend-mode: multiply;
+    background-color: #0005;
+    top: 0;
+    z-index: -1;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    content: "";
+  }
+}
