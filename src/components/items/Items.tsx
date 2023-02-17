@@ -7,7 +7,6 @@ import Single from "./Single";
 
 const Items = () => {
   const { data, isLoading, error } = usefetch();
-  console.log(data, "items");
 
   return (
     <>

@@ -3,7 +3,7 @@ import Banner from "../components/Banner";
 import Filter from "../components/filter/Filter";
 import Items from "../components/items/Items";
 import Recommended from "../components/items/Recommended";
-import Catagory from "./Catagory";
+import CatagoryCompo from "../components/products/CatagoryCompo";
 
 const Home = () => {
   return (
@@ -13,7 +13,7 @@ const Home = () => {
       <Items />
       <Advertisement />
       <Recommended />
-      <Catagory />
+      <CatagoryCompo />
     </>
   );
 };

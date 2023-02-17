@@ -4,11 +4,16 @@ interface Props {
 const StarRating = ({ star = 0 }: Props) => {
   return (
     <>
-      {[...Array(Math.round(star))].map((elm,index) => {
-        if (star <= 5) return <span key={index} className="ratingStar"></span>;
+      {[...Array(Math.round(star))].map((elm, index) => {
+        if (star <= 5)
+          return (
+            <span key={index} className="ratingStar">
+              
+            </span>
+          );
         return;
       })}
-      {star > 0 && <span className="rating__count">{"(8)"}</span>}
+      {star > 0 && <span className="rating__count"></span>}
     </>
   );
 };

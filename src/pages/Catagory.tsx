@@ -34,6 +34,15 @@ const Catagory = () => {
                 })}
               </ul>
             </div>
+
+            <div className="catagory__filter-price">
+              <h4>Price</h4>
+              <div className="price">
+                <input type="number" className="min" placeholder="min" />
+                <span> - </span>
+                <input type="number" className="min" placeholder="max" />
+              </div>
+            </div>
           </div>
           <div className="items">
             {isLoading && <span className="loading"></span>}

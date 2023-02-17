@@ -1,7 +1,6 @@
-import { HTMLAttributes, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import usefetch from "../components/customHooks/UseFetch";
-import Products from "../components/items/Products";
 import StarRating from "../components/items/StarRating";
 
 const Singlepage = () => {
@@ -9,11 +8,22 @@ const Singlepage = () => {
   const { data, isLoading, error } = usefetch();
   const sliderRef = useRef<HTMLDivElement>(null);
   const [src, setSrc] = useState<string | null>(null);
+  const [count, setCount] = useState<number>(1);
 
   const singleProd = {
     ...data.find((el) => {
       return el.title.toLowerCase() == productTitle?.toLocaleLowerCase();
     }),
+  };
+
+  const onCount = (num: number) => {
+    if (stock) {
+      if (count >= 1 && (count < stock || num < 0)) {
+        setCount((c) => (c += num));
+      } else {
+        setCount(1);
+      }
+    }
   };
 
   const {
@@ -30,9 +40,6 @@ const Singlepage = () => {
     discountPercentage,
   } = singleProd;
 
-  function slider() {
-    let index = 3;
-  }
   return (
     <section>
       <div className="container">
@@ -59,12 +66,41 @@ const Singlepage = () => {
           </div>
 
           <div className="singlePage__content">
-            <div className="title">
-              <h2>{title}</h2>
+            <div className="title__content">
+              <div className="title">
+                <h2>{title}</h2>
+              </div>
+              <p className="description">{description}</p>
+              <StarRating star={rating} />
             </div>
-            <p className="description">{description}</p>
-
-            <StarRating star={rating} />
+            <div className="price">
+              <div>
+                <span className="realPrice">Price : रु {price}</span>
+                <span> -{discountPercentage}%</span>
+              </div>
+              <span className="discount">
+                रु :
+                {discountPercentage && price
+                  ? price - (price * discountPercentage) / 100
+                  : price}
+                %
+              </span>
+            </div>
+            {/* cart Count */}
+            <div className="cart__counter">
+              <div>
+                <button className="increase" onClick={() => onCount(1)}>
+                  +
+                </button>
+                <span className="count">{count}</span>
+                <button className="decrease" onClick={() => onCount(-1)}>
+                  -
+                </button>
+              </div>
+              <p>
+                only <span>{stock} items</span> left! Don't miss it
+              </p>
+            </div>
           </div>
         </div>
       </div>

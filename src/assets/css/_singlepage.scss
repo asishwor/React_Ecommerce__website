@@ -53,14 +53,70 @@
     }
   }
   &__content {
+    font-size: 14px;
     h2 {
       font-size: var(--fs-400);
+    }
+    p {
+      margin-bottom: 10px;
+      max-width: 400px;
     }
     padding-left: 0;
     @include mq(sm) {
       padding-left: 50px;
       h2 {
-        font-size: var(--fs-900);
+        font-size: var(--fs-800);
+      }
+    }
+    .title__content {
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--hover-color);
+    }
+    // discount and price styling
+    .price {
+      margin: 10px 0;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      .realPrice {
+        color: var(--body-font-color);
+        text-decoration: line-through;
+      }
+      .discount {
+        font-weight: 700;
+        stroke: aqua;
+        font-size: 12px;
+      }
+    }
+    // cart counter styling
+    .cart__counter {
+      display: flex;
+      align-items: center;
+      div {
+        display: flex;
+        // display: inline-block;
+
+        align-items: center;
+        padding: 10px 32px;
+        background-color: var(--hover-color);
+        width: 200px;
+        justify-content: space-between;
+        font-size: var(--fs-300);
+        color: var(--primary-color);
+        border-radius: 30px;
+        button {
+          font-weight: 800;
+          font-size: var(--fs-500);
+        }
+      }
+      p {
+        display: inline-block;
+        max-width: 140px;
+        margin-left: 12px;
+        font-size: 12px;
+        span {
+          color: var(--orange-color);
+        }
       }
     }
   }

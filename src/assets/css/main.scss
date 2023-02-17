@@ -9,7 +9,7 @@
 @forward "./filter";
 
 // font import
-@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@500;700&family=Nunito+Sans:wght@400;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@500;700&family=Nunito+Sans:wght@400;600;700;800;900&family=Secular+One&display=swap");
 *,
 *::after,
 *::before,
@@ -31,24 +31,26 @@ a {
 }
 @keyframes loading {
   0% {
-    rotate: 0;
+    transform: rotate(0deg);
   }
   100% {
-    rotate: 360deg;
+    transform: rotate(360deg);
   }
 }
 
 .loading {
-  border: 5px solid var(--primary-color);
+  border: 10px solid var(--body-bg-color);
   position: absolute;
   top: 50%;
   display: inline-block;
+  z-index: 9999;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 60px;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-  width: 60px;
+  height: 80px;
+  transform-origin: center center;
+  border-top-color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  width: 80px;
   border-radius: 50%;
   animation: loading 1s infinite linear;
 }
@@ -130,6 +132,7 @@ $colors: (
   "heading-font": #191919,
   "body-font": #645e61,
   "body-bg": #ffffff,
+  "orange": #fa731e,
 );
 $sizes: (
   fs-100: 16px,

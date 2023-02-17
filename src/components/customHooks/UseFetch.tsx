@@ -38,4 +38,5 @@ function usefetch() {
 
   return { data, isLoading, error };
 }
+
 export default usefetch;

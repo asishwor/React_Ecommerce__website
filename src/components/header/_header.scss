@@ -4,6 +4,17 @@
   box-shadow: 0 0px 10px var(--primary-color);
   position: relative;
   z-index: 999;
+  transition: 400ms all ease-in;
+
+  &.sticky {
+    position: fixed;
+    padding: 10px 0;
+    width: 100%;
+    background-color: var(--body-bg-color);
+    left: 0;
+    transition: 400ms all ease-out;
+  }
+
   &::after {
     @include mq(lg) {
       content: "";
@@ -101,6 +112,7 @@
         & > ul {
           position: absolute;
           z-index: 800;
+          width: 200px;
           height: 0;
           opacity: 0;
           transition: all 400ms cubic-bezier(0.39, 0.575, 0.565, 1);

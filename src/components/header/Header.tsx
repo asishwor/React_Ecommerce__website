@@ -1,18 +1,37 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Account from "./Account";
 import SearchProd from "./SearchProd";
+import usefetchCatagory from "../customHooks/useFetchCatagory";
 
 const Header = () => {
   const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false);
+  const [top, setTop] = useState<number | undefined>(0);
+  const catagory = usefetchCatagory();
+  const headerRef = useRef<HTMLDivElement>(null);
+
   const onMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setIsMobileMenu(!isMobileMenu);
   };
+
+  async function setStickyHeader() {
+    let height = await headerRef.current?.clientHeight;
+    await setTop(height);
+    if (top && top < window.pageYOffset) {
+      headerRef.current?.classList.add("sticky");
+    } else {
+      headerRef.current?.classList.remove("sticky");
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", setStickyHeader);
+  }, []);
   return (
     <>
       <header>
-        <div className="header">
+        <div className="header" ref={headerRef}>
           {/* header top section  */}
 
           <div className="container">
@@ -61,18 +80,11 @@ const Header = () => {
                 <li>
                   <NavLink to="">Catagories </NavLink>
                   <ul>
-                    <li>
-                      <Link to={"/catagory/smartphones"}>Mobiles</Link>
-                    </li>
-                    <li>
-                      <Link to={"/catagory/laptops"}>Laptops</Link>
-                    </li>
-                    <li>
-                      <Link to={"/catagory/fragrances"}>Perfume</Link>
-                    </li>
-                    <li>
-                      <Link to={"/"}></Link>
-                    </li>
+                    {catagory.map((el) => (
+                      <li key={el}>
+                        <Link to={`/catagory/${el}`}>{el}</Link>
+                      </li>
+                    ))}
                   </ul>
                 </li>
                 <li>
