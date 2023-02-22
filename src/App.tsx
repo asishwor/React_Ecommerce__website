@@ -28,9 +28,16 @@ function App() {
   }
 
   useEffect(() => {
-    window.addEventListener("load", contentLoaded);
-    fetchData();
-    return () => window.removeEventListener("DOMContentLoaded", contentLoaded);
+    if (document.readyState === "complete") {
+      contentLoaded();
+      fetchData();
+    } else {
+      window.addEventListener("load", contentLoaded);
+      fetchData();
+
+      return () =>
+        window.removeEventListener("DOMContentLoaded", contentLoaded);
+    }
   }, []);
 
   return (
@@ -40,7 +47,16 @@ function App() {
 
       <Routes>
         <Route path="/cart" element={<Cart />} />
-        <Route path="/" element={<Home prod={prod} />} />
+        <Route
+          path="/"
+          element={
+            isFullyLoaded ? (
+              <Home prod={prod} />
+            ) : (
+              <div className="loading"></div>
+            )
+          }
+        />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route
           path="/products/:productID/:productTitle/"

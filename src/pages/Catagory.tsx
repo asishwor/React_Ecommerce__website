@@ -86,7 +86,7 @@ const category = ({ prod }: DataProps) => {
                         name={el}
                         id=""
                         onChange={(e) => {
-                          onfilterByBrand(e, e.target.name, category);
+                          // onfilterByBrand(e, e.target.name, category);
                           navigate(`/category/${category}/${e.target.name}`);
                         }}
                       />
