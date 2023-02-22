@@ -15,7 +15,7 @@ const Home = ({ prod }: DataProps) => {
       <Items prod={prod} />
       <Advertisement />
       <Recommended prod={prod} />
-      <CatagoryCompo prod={prod} />
+      <CatagoryCompo />
     </>
   );
 };

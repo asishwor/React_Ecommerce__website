@@ -13,6 +13,7 @@ const Wishlist = () => {
           return (
             <>
               <SingleCart
+                discountPercentage={prod.discountPercentage}
                 category=""
                 brand=""
                 id={prod.id}
