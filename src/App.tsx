@@ -40,16 +40,7 @@ function App() {
 
       <Routes>
         <Route path="/cart" element={<Cart />} />
-        <Route
-          path="/"
-          element={
-            isFullyLoaded ? (
-              <Home prod={prod} />
-            ) : (
-              <div className="loading"></div>
-            )
-          }
-        />
+        <Route path="/" element={<Home prod={prod} />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route
           path="/products/:productID/:productTitle/"
