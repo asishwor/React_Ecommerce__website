@@ -5,9 +5,6 @@ const Filter = () => {
         <div className="filter__content">
           <ul className="filter__list">
             <li>
-              <a href="">Headphone Type </a>
-            </li>
-            <li>
               <a href="">Price </a>
             </li>
             <li>

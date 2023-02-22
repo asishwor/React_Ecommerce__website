@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import "../../assets/css/items.scss";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   ADD_TO_FAVOURITE,
   REMOVE_FROM_FAVOURITE,
 } from "../../app/slices/CartSlices";
-import { RootState } from "../../app/Store";
 import { ProdTypes } from "../customHooks/UseFetch";
 interface SingPropsType extends ProdTypes {
   elm: ProdTypes;
@@ -21,6 +20,7 @@ const Single = ({
   title,
   price,
   brand,
+  discountPercentage,
   rating,
   id,
   description,
@@ -46,6 +46,8 @@ const Single = ({
           className="like-tag"
           onClick={(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
             e.stopPropagation();
+            e.preventDefault();
+
             if (isFavourite) {
               dispatch(REMOVE_FROM_FAVOURITE(elm));
               confirm("This item removed from your wishlist");
@@ -69,12 +71,18 @@ const Single = ({
         </span>
         <div className="card__content">
           <div className="card__heading">
-            <Link to={`/products/${id}/${title}`}>
-              <h4>{title.slice(0, 20)}</h4>
-            </Link>
+            <h4>{title.slice(0, 20)}</h4>
             <span className="price">
-              रु{price}
+              रु.{price}
               .00
+            </span>
+            <span className="price_discount">
+              रु
+              {Math.floor(
+                discountPercentage
+                  ? price - (price * discountPercentage) / 100
+                  : price
+              )}
             </span>
           </div>
           <p className="card__excerpt">{description?.slice(0, 40)}...</p>
@@ -86,10 +94,11 @@ const Single = ({
           {isAddedToCart && (
             <button
               className="btn-primary"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 setIsAddedToCart(false);
                 alert("This item removed from cart");
-
                 dispatch(REMOVE_FROM_CART(elm));
               }}
             >
@@ -99,7 +108,10 @@ const Single = ({
           {!isAddedToCart && (
             <button
               className="btn-secondary"
-              onClick={() => {
+              onClick={(e) => {
+                // e.stopPropagation();
+                e.preventDefault();
+
                 setIsAddedToCart(true);
                 alert("This item added to cart");
 

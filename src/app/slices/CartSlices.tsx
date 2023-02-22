@@ -7,12 +7,14 @@ interface StateTypes {
   favourite: ProdTypes[];
   allProducts: ProdTypes[];
   isAdded: boolean;
+  amount: number;
 }
 
 // intial state
 const initialState: StateTypes = {
   allProducts: [],
   cart: [],
+  amount: 0,
   isAdded: false,
   favourite: [],
 };
@@ -29,6 +31,9 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     // Cart
+    FETCH_DATA: (state, action) => {
+      state.allProducts = action.payload;
+    },
 
     ADD_TO_CART: (state, action: ActionType) => {
       state.cart = [
@@ -36,10 +41,12 @@ export const cartSlice = createSlice({
         action.payload,
       ];
       state.isAdded = true;
+      state.amount += 1;
     },
 
     REMOVE_FROM_CART: (state, action: ActionType) => {
       state.cart = state.cart.filter((cart) => action.payload.id !== cart.id);
+      state.amount -= 1;
     },
 
     // Wishlist
@@ -73,5 +80,6 @@ export const {
   REMOVE_FROM_FAVOURITE,
   ADD_CART_ALERT,
   REMOVE_CART_ALERT,
+  FETCH_DATA,
 } = cartSlice.actions;
 export default cartSlice.reducer;

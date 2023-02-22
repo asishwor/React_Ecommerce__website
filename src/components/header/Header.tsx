@@ -3,12 +3,17 @@ import { Link, NavLink } from "react-router-dom";
 import Account from "./Account";
 import SearchProd from "./SearchProd";
 import usefetchCatagory from "../customHooks/useFetchCatagory";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/Store";
+import { DataProps } from "../customHooks/UseFetch";
 
-const Header = () => {
+const Header = ({ prod }: DataProps) => {
+  const data = prod;
   const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false);
   const [top, setTop] = useState<number | undefined>(0);
   const catagory = usefetchCatagory();
   const headerRef = useRef<HTMLDivElement>(null);
+  const { amount } = useSelector((store: RootState) => store.cart);
 
   const onMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -18,7 +23,7 @@ const Header = () => {
   async function setStickyHeader() {
     let height = await headerRef.current?.clientHeight;
     await setTop(height);
-    if (top && top < window.pageYOffset) {
+    if (top && top < window.pageYOffset - 100) {
       headerRef.current?.classList.add("sticky");
     } else {
       headerRef.current?.classList.remove("sticky");
@@ -27,7 +32,7 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", setStickyHeader);
-  }, []);
+  }, [top]);
   return (
     <>
       <header>
@@ -88,7 +93,7 @@ const Header = () => {
                   </ul>
                 </li>
                 <li>
-                  <NavLink to="">Deaks</NavLink>
+                  <NavLink to="">Deals</NavLink>
                 </li>
                 <li>
                   <NavLink to="">What's new</NavLink>
@@ -97,7 +102,7 @@ const Header = () => {
                   <NavLink to="">Delivery</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/cart">Cart</NavLink>
+                  <NavLink to="/cart">Cart-{amount}</NavLink>
                   <ul>
                     <li>
                       <NavLink to="/wishlist">Wishlist</NavLink>

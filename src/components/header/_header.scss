@@ -1,18 +1,29 @@
 @use "../../assets/css/_media" as *;
 
 .header {
-  box-shadow: 0 0px 10px var(--primary-color);
   position: relative;
   z-index: 999;
-  transition: 400ms all ease-in;
+  transition: 400ms all linear;
 
   &.sticky {
+    box-shadow: 0 0px 10px var(--primary-color);
     position: fixed;
-    padding: 10px 0;
+    padding: 0 0 10px 0;
+    height: 70px;
+    top: 0;
     width: 100%;
     background-color: var(--body-bg-color);
     left: 0;
-    transition: 400ms all ease-out;
+    transition: all 500ms linear;
+    &::after {
+      content: none;
+    }
+    .header__top {
+      display: none;
+    }
+    .header__bottom {
+      padding: 10px 0;
+    }
   }
 
   &::after {

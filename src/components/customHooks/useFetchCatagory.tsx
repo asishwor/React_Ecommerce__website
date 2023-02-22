@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import usefetch from "./UseFetch";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { RootState } from "../../app/Store";
 
 export default function usefetchCatagory() {
-  const { data, isLoading, error } = usefetch();
   const [catagories, setCatagories] = useState<string[]>([]);
+  const data = useSelector((state: RootState) => {
+    return state.cart.allProducts;
+  });
 
   async function findCata() {
     let cata: string[] = [];

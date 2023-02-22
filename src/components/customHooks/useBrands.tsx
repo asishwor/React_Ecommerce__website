@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import usefetch, { ProdTypes } from "./UseFetch";
 
-export default function useBrandList() {
-  const { data, isLoading, error } = usefetch();
+export default function useBrandList(
+  id: string | undefined,
+  data: ProdTypes[]
+) {
   const [brandList, setBrandList] = useState<string[]>([]);
-  const { id } = useParams();
 
   useEffect(() => {
     // Function for set unique brand catagory wise
 
-    async function setBrand() {
+    async function setBrand(id: string | undefined) {
       const brands: string[] = [];
       await data
         .filter((d) => d.category === id)
@@ -18,7 +19,7 @@ export default function useBrandList() {
       await setBrandList([...new Set(brands)]);
     }
 
-    setBrand();
+    setBrand(id);
     // set dependecies array to render component on change of this value first time render on the basiis of data and next time render on changes of the catagory
   }, [data, id]);
 

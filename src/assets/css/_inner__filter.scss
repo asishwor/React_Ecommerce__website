@@ -1,0 +1,38 @@
+@use "./media" as *;
+
+.innerFilter {
+  @include mq(sm) {
+    display: grid;
+    grid-template-columns: 270px auto;
+  }
+  &__section {
+    color: var(--body-font-color);
+  }
+  &__left {
+    padding-right: 10px;
+  }
+  &-right {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    @include mq(sm) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .category__head {
+    flex-direction: column;
+    align-items: flex-start;
+    h4 {
+      font-weight: 600;
+      font-family: inherit;
+      letter-spacing: -0.8px;
+      line-height: 0;
+    }
+
+    .brand {
+      color: var(--orange-color);
+      padding-left: 5px;
+      text-decoration: underline;
+    }
+  }
+}

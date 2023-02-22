@@ -26,6 +26,9 @@ const Cart = () => {
             {cart.map((prod: ProdTypes) => {
               return (
                 <SingleCart
+                  brand={prod.brand}
+                  category={prod.category}
+                  discountPercentage={prod.discountPercentage}
                   key={prod.id}
                   id={prod.id}
                   title={prod.title}

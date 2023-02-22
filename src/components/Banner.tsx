@@ -12,9 +12,9 @@ const Banner = () => {
     <>
       <section className="banner">
         <div className="container">
-          <div className="banner__content">
+          <div className="banner__content ">
             <Swiper
-              className="mySwiper"
+              className="mySwiper "
               pagination={{ clickable: true }}
               modules={[Pagination, Autoplay]}
               spaceBetween={50}
@@ -25,7 +25,7 @@ const Banner = () => {
               }}
             >
               <SwiperSlide>
-                <div className="slider">
+                <div className="slider container">
                   <div className="banner__title">
                     <h1>
                       Upgrade your tech game with our unbeatable laptop deals -
@@ -41,7 +41,7 @@ const Banner = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="slider">
+                <div className="slider container">
                   <div className="banner__title">
                     <h1>
                       Stay connected in style with our latest smartphone
@@ -57,7 +57,7 @@ const Banner = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="slider">
+                <div className="slider container">
                   <div className="banner__title">
                     <h1>
                       Shop for Fresh and High-Quality Groceries Online -
@@ -74,7 +74,7 @@ const Banner = () => {
               </SwiperSlide>
 
               <SwiperSlide>
-                <div className="slider">
+                <div className="slider container">
                   <div className="banner__title">
                     <h1>
                       Indulge your senses and leave a lasting impression with

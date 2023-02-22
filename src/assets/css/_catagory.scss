@@ -1,14 +1,85 @@
 // catagory pages style
-
-.catagory {
+@use "./media" as *;
+.category {
+  --border-color: rgb(165, 151, 151);
   display: grid;
-  grid-template-columns: 300px auto;
+  grid-template-columns: 250px auto;
+  @media (max-width: 700px) {
+    grid-template-columns: auto;
+    gap: 40px;
+  }
+
+  .items {
+    grid-template-columns: 1fr;
+    padding-left: 20px;
+    @include mq(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include mq(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  margin-top: 30px;
+  color: var(--body-font-color);
+  .list {
+    display: grid;
+    grid-template-columns: auto;
+    .card {
+      display: flex;
+      @media (max-width: 860px) {
+        display: block;
+        &__btn {
+          position: relative !important;
+        }
+      }
+      &__image {
+        border-radius: 10px 0 0 10px;
+        overflow: hidden;
+        max-width: 230px;
+        margin-right: 20px;
+      }
+      &__btn {
+        position: absolute;
+        right: 10px;
+        bottom: 0;
+      }
+    }
+  }
+  &__section {
+    padding-top: 0;
+  }
+  h3,
+  h4 {
+    font-weight: 400;
+    font-size: var(--fs-300);
+    text-transform: capitalize;
+  }
+  h4 {
+    font-weight: 400;
+    margin-bottom: 7px;
+  }
+  &__name {
+    padding-bottom: 20px;
+    color: var(--orange-color);
+    text-transform: capitalize;
+    margin-top: 3px;
+    font-size: var(--fs-100);
+  }
   &__filter {
     padding-right: 20px;
-    h3 {
-      margin-bottom: 20px;
-    }
+    position: sticky;
+    top: 100px;
+    align-self: self-start;
+
+    // filter with brand
     &-brand {
+      color: var(--body-font-color);
+      .brand__name {
+        text-transform: uppercase;
+        font-size: 14px;
+        color: var(--heading-font-color);
+      }
+
       h4 {
         margin-bottom: 12px;
       }
@@ -17,25 +88,142 @@
       border-bottom: 1.5px solid rgb(165, 151, 151);
       ul {
         display: grid;
-        gap: 10px;
+        gap: 3px;
         input {
           margin-right: 12px;
         }
       }
     }
-    // filter with price
+    h3 {
+      font-weight: 400;
+      font-size: var(--fs-200);
+    }
+    // filter with ratings
+    &-ratings {
+      display: grid;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-color);
+
+      span {
+        letter-spacing: 3px;
+        cursor: pointer;
+        color: var(--green-color);
+        & > span {
+          pointer-events: none;
+          padding-left: 5px;
+          padding-right: 7px;
+          color: rgb(115, 106, 106);
+        }
+      }
+    }
+    // filter with price min max
     &-price {
       width: 100%;
-      .price {
+      padding: 20px 10px;
+      .price form {
         display: flex;
         justify-content: space-between;
         span {
           font-size: var(--fs-500);
         }
         input {
-          border: 1px solid var(--hover-color);
+          border: 1px solid var(--body-font-color);
+          color: var(--body-font-color);
+          border-radius: 5px;
           padding: 0 10px;
-          max-width: 100px;
+          max-width: 80px;
+        }
+        button {
+          background-color: var(--primary-color);
+          padding: 6px 15px 4px;
+          color: var(--body-bg-color);
+          border-radius: 5px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  // info and sorting with price and list view and grid view
+  &__head {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    @include mq(sm) {
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .category__view {
+      margin-top: 20px;
+      @include mq(lg) {
+        display: flex;
+      }
+      .sorting__price {
+        display: flex;
+        align-items: center;
+        & > li {
+          margin-left: 10px;
+          font-size: 14px;
+          position: relative;
+          cursor: pointer;
+          div {
+            // pointer-events: none;
+            padding: 8px 25px;
+            border: 1px solid var(--primary-color);
+          }
+          span {
+            &:nth-of-type(2) {
+              padding-left: 10px;
+              font-size: var(--fs-300);
+            }
+          }
+          ul {
+            opacity: 0;
+            position: absolute;
+            height: 0;
+            background-color: var(--body-bg-color);
+          }
+          &.active ul {
+            width: 100%;
+            opacity: 1;
+            background-color: var(--body-bg-color);
+            box-shadow: 0 0 5px 2px #0006;
+            height: auto;
+            z-index: 900;
+            & > li {
+              padding: 10px 5px;
+              position: relative;
+              &:hover {
+                background-color: var(--primary-color);
+                color: var(--body-bg-color);
+              }
+            }
+          }
+        }
+      }
+      // toggle grid view and listing styling
+      .list__item {
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        @include mq(sm) {
+          margin-top: 20px;
+          flex-direction: row;
+        }
+        div {
+          display: flex;
+          span {
+            transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            font-size: var(--fs-500);
+            &:nth-of-type(1) {
+              margin: 0 20px 0 10px;
+            }
+          }
         }
       }
     }
@@ -62,6 +250,8 @@
     text-align: center;
     box-shadow: 0 0 1px 0.5px rgba(13, 13, 249, 0.601),
       0 0 1px 0.5px rgba(254, 105, 12, 0.427);
+    @include mq(sm) {
+    }
     img {
       height: 100px;
       margin-bottom: 10px;

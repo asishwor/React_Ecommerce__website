@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
-import usefetch from "../customHooks/UseFetch";
 import usefetchCatagory from "../customHooks/useFetchCatagory";
-import useCataThumb from "../customHooks/useCataThumb";
 import { Link } from "react-router-dom";
+import { DataProps } from "../customHooks/UseFetch";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/Store";
 
 const CatagoryCompo = () => {
   const catagories = usefetchCatagory();
-  const cat = useCataThumb();
+  const datas = useSelector((store: RootState) => store.cart.allProducts);
 
   return (
     <>
       <section className="catagory__section">
         <div className="container">
           <h2>Catagory</h2>
+
           <div className="catagories">
             {catagories.map((el, i) => (
               <Link
@@ -20,7 +21,10 @@ const CatagoryCompo = () => {
                 key={el}
                 className="catagories__item"
               >
-                <img src={cat ? cat[i] : ""} alt="" />
+                <img
+                  src={datas.filter((e) => e.category == el)[1].thumbnail}
+                  alt=""
+                />
                 <span> {el}</span>
               </Link>
             ))}

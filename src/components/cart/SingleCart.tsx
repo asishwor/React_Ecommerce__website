@@ -1,4 +1,4 @@
-import { ProdTypes } from "../items/Products";
+import { ProdTypes } from "../customHooks/UseFetch";
 import StarRating from "../items/StarRating";
 const SingleCart = ({ title, thumbnail, rating, price }: ProdTypes) => {
   return (

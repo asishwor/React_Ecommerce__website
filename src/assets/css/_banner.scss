@@ -5,7 +5,7 @@
   z-index: 30;
   height: 400px;
 
-  .container {
+  & > .container {
     padding: 0;
   }
   @include mq(sm) {
@@ -24,7 +24,7 @@
     }
     .swiper {
       height: 100%;
-      width: 100vw;
+      width: 100%;
       position: absolute;
       top: 0;
       left: 0;

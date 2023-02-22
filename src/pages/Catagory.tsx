@@ -1,70 +1,268 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import useBrandList from "../components/customHooks/useBrands";
-import usefetch, { ProdTypes } from "../components/customHooks/UseFetch";
-import useTitle from "../components/customHooks/useTittle";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { DataProps } from "../components/customHooks/UseFetch";
 import Single from "../components/items/Single";
+import {
+  ASC,
+  DESC,
+  FILTER_WITH_RATINGS,
+  FILTER_WITH_PRICE,
+  max,
+  SET_FILTER,
+  DEFAULT_SORTING,
+  min,
+} from "../app/slices/FilterSlices";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { RootState } from "../app/Store";
+import CatagoryCompo from "../components/products/CatagoryCompo";
 
-const Catagory = () => {
-  const { data, isLoading, error } = usefetch();
-  const [brandList, setBrandList] = useState<ProdTypes[]>([]);
-  const { id } = useParams();
+const category = ({ prod }: DataProps) => {
+  const data = prod;
+  const [isGrid, setIsGrid] = useState(true);
+  const { maxVal, minVal, rating, brands, toHigh, toLow, sortedData } =
+    useSelector((store: RootState) => store.filter);
+  const dispatch = useDispatch();
+  const { category, brand } = useParams();
+  const navigate = useNavigate();
+  const [catagoryList, setCatagoytList] = useState<string[]>([]);
 
-  const Brands = useBrandList();
+  function getStar(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+    dispatch(FILTER_WITH_RATINGS((e.target as HTMLElement).dataset.star));
+  }
 
-  // change dynamic title using custom hook
-  useTitle(id);
+  const [toggleSorting, setSortingToggle] = useState(false);
+  // get max price avlue
+  function getMinPrice(e: React.ChangeEvent<HTMLInputElement>) {
+    dispatch(min(+e.target.value));
+  }
+
+  function getMaxPrice(e: React.ChangeEvent<HTMLInputElement>) {
+    dispatch(max(+e.target.value));
+  }
+  // Routing for filter
+
+  async function onfilterByBrand(
+    e: any,
+    paramName: string,
+    paramValue: number | string | undefined
+  ) {
+    const url = await window.location.href;
+    const param = await new URLSearchParams(url);
+    const newParam = await param.append("rating", rating.toString());
+    await param.set("rating", rating.toString());
+    navigate(`${paramName}=${paramValue}`);
+    // console.log(url, param.for(const [key,value] of search));
+  }
+
+  function filterItems() {
+    dispatch(SET_FILTER(data.filter((el) => el.category == category)));
+  }
+
+  // get set catagory list & render page on chenges
+  useEffect(() => {
+    filterItems();
+    sortedData.map((el) => setCatagoytList([...catagoryList, el.brand]));
+  }, [category, data, brand, rating, maxVal]);
 
   return (
-    <section>
+    <section className="category__section">
       <div className="container">
-        <div className="catagory">
-          <div className="catagory__filter">
-            <h3>Catagory - {id}</h3>
-            <div className="catagory__filter-brand">
+        {/* catagory with images */}
+        {<CatagoryCompo />}
+
+        <div className="category">
+          <div className="category__filter">
+            <h3>Category</h3>
+            <p className="category__name">{category}</p>
+            <div className="category__filter-brand">
+              {/* filter with brands name  */}
               <h4>Brands</h4>
               <ul>
-                {Brands.map((el) => {
+                {brands.map((el) => {
                   return (
                     <div className="brandlist" key={el}>
-                      <input type="checkbox" name="" id="" />
-                      <span>{el}</span>
+                      <input
+                        type="checkbox"
+                        name={el}
+                        id=""
+                        onChange={(e) => {
+                          onfilterByBrand(e, e.target.name, category);
+                          navigate(`/category/${category}/${e.target.name}`);
+                        }}
+                      />
+                      <span className="brand__name">{el}</span>
                     </div>
                   );
                 })}
               </ul>
             </div>
 
-            <div className="catagory__filter-price">
+            {/* Filter with ratings */}
+            <div className="category__filter-ratings">
+              <span
+                data-star="4.5"
+                onClick={(e) => {
+                  getStar;
+                  onfilterByBrand(e, "rating", rating);
+                }}
+              >
+                    
+              </span>
+              <span data-star="3.5" onClick={getStar}>
+                   <span></span>
+                <span>And Up</span>
+              </span>
+              <span data-star="2.5" onClick={getStar}>
+                  <span> </span>
+                <span>And Up</span>
+              </span>
+              <span data-star="1.5" onClick={getStar}>
+                 <span>  </span>
+                <span>And Up</span>
+              </span>
+              <span data-star="1" onClick={getStar}>
+                <span>   </span>
+                <span>And Up</span>
+              </span>
+            </div>
+
+            <div className="category__filter-price">
               <h4>Price</h4>
               <div className="price">
-                <input type="number" className="min" placeholder="min" />
-                <span> - </span>
-                <input type="number" className="min" placeholder="max" />
+                <form action="">
+                  <input
+                    type="number"
+                    className="min"
+                    placeholder="min"
+                    onChange={(e) => getMinPrice}
+                  />
+                  <span> - </span>
+                  <input
+                    type="number"
+                    className="min"
+                    placeholder="max"
+                    onChange={getMaxPrice}
+                  />
+
+                  <button
+                    type="submit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(FILTER_WITH_PRICE("price"));
+                    }}
+                  >
+                    
+                  </button>
+                </form>
               </div>
             </div>
           </div>
-          <div className="items">
-            {isLoading && <span className="loading"></span>}
-            {data
-              .filter((prod) => prod.category === id)
-              .map((prod) => {
+
+          <div className="category__right">
+            {/* category Info */}
+            <div className="category__head">
+              <div className="category__info">
+                <h4>{category}</h4>
+                <p>
+                  {sortedData.length}
+                  -items found in {category}
+                </p>
+              </div>
+              {/* sorting with price a
+              nd  view grid and list */}
+              <div className="category__view">
+                <div className="sorting__price">
+                  <span> Sort By :</span>
+                  <li
+                    onClick={() => setSortingToggle(!toggleSorting)}
+                    className={`${toggleSorting ? "active" : ""}`}
+                  >
+                    <div>
+                      <span>
+                        {toHigh && !toLow
+                          ? "Price Low To High"
+                          : toLow && !toHigh
+                          ? " Price High To Low"
+                          : "Best Matched"}
+                      </span>
+                      <span></span>
+                    </div>
+                    <ul>
+                      <li onClick={() => dispatch(DEFAULT_SORTING())}>
+                        Best Matched
+                      </li>
+                      <li onClick={(e) => dispatch(ASC(e))}>
+                        Price Low To High
+                      </li>
+                      <li onClick={(e) => dispatch(DESC(e))}>
+                        Price High To Low
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+                {/* View grid view and list view */}
+                <div className="list__item">
+                  <span>View : </span>
+                  <div>
+                    <span
+                      style={
+                        isGrid
+                          ? { color: "var(--primary-color)" }
+                          : { color: "var(--body-font-color)" }
+                      }
+                      className="grid"
+                      onClick={() => setIsGrid(true)}
+                    >
+                      
+                    </span>
+                    <span
+                      style={
+                        !isGrid
+                          ? { color: "var(--primary-color)" }
+                          : { color: "var(--body-font-color)" }
+                      }
+                      className="list"
+                      onClick={() => setIsGrid(false)}
+                    >
+                      
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={`${isGrid ? "items" : "items list"}`}>
+              {/* {isLoading && <span className="loading"></span>} */}
+              {sortedData.map((prod) => {
+                const {
+                  brand,
+                  id,
+                  category,
+                  price,
+                  rating,
+                  thumbnail,
+                  title,
+                  discountPercentage,
+                  description,
+                  images,
+                } = prod;
                 return (
                   <Single
                     category=""
                     brand=""
-                    key={prod.id}
+                    key={id}
                     elm={prod}
-                    id={prod.id}
-                    price={prod.price}
-                    rating={prod.rating}
-                    thumbnail={prod.thumbnail}
-                    title={prod.title}
-                    description={prod.description}
-                    images={prod.images}
+                    id={id}
+                    price={price}
+                    rating={rating}
+                    thumbnail={thumbnail}
+                    title={title}
+                    description={description}
+                    images={images}
+                    discountPercentage={discountPercentage}
                   />
                 );
               })}
+            </div>
           </div>
         </div>
       </div>
@@ -72,4 +270,4 @@ const Catagory = () => {
   );
 };
 
-export default Catagory;
+export default category;

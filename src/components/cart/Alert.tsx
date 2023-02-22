@@ -13,7 +13,7 @@ const Alert = () => {
       className={"alert"}
       style={
         isAdded
-          ? { transform: "translate(0%)" }
+          ? { transform: "translate(-50%,0)" }
           : { transform: "translate(-1000%)" }
       }
     >

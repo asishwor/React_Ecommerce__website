@@ -1,19 +1,20 @@
-import usefetch from "../customHooks/UseFetch";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/Store";
+import { DataProps } from "../customHooks/UseFetch";
 import Single from "./Single";
 
 // redux
 
 // component start
 
-const Items = () => {
-  const { data, isLoading, error } = usefetch();
-
+const Items = ({ prod }: DataProps) => {
+  const data = useSelector((store: RootState) => store.cart.allProducts);
   return (
     <>
       <section className="items__Section">
         <div className="container">
           <div className="items">
-            {isLoading && <div className="loading"></div>}
+            {/* {prod && <div className="loading"></div>} */}
             {data.map((p, i) => {
               if (i < 12)
                 return (
@@ -26,6 +27,7 @@ const Items = () => {
                     title={p.title}
                     price={p.price}
                     rating={p.rating}
+                    discountPercentage={p.discountPercentage}
                     id={p.id}
                     description={p.description}
                   />

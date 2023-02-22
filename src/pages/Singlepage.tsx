@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { RootState } from "../app/Store";
 import usefetch from "../components/customHooks/UseFetch";
 import StarRating from "../components/items/StarRating";
 
 const Singlepage = () => {
+  const data = useSelector((state: RootState) => state.cart.allProducts);
   const { productTitle } = useParams();
-  const { data, isLoading, error } = usefetch();
+
   const sliderRef = useRef<HTMLDivElement>(null);
   const [src, setSrc] = useState<string | null>(null);
   const [count, setCount] = useState<number>(1);

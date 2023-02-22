@@ -3,8 +3,12 @@
 
 .card {
   position: relative;
+  border-radius: 10px;
   transition: all 700ms linear;
-  &__heading:hover,
+  &:hover {
+    box-shadow: 0 2px 3px #0005;
+  }
+
   &__heading:hover h4 {
     cursor: pointer;
     color: var(--green-color);
@@ -13,6 +17,12 @@
     transition: all 500ms linear;
     transform: scale(1.2);
     cursor: pointer;
+  }
+  &__content {
+    padding: 0 10px;
+    h4 {
+      font-size: var(--fs-200);
+    }
   }
   .like-tag {
     position: absolute;
@@ -35,7 +45,7 @@
     height: 200px;
     width: 100%;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     overflow: hidden;
     transition: 400ms all ease-out;
 
@@ -48,32 +58,49 @@
   }
   &__heading {
     display: flex;
-    align-items: center;
+    // align-items: center;
+    flex-direction: column;
     justify-content: space-between;
     margin-top: 10px;
     .price {
       font-size: var(--fs-100);
       display: inline-block;
-      font-weight: 800;
       font-size: var(--fs-200);
-      sup {
-        padding-top: 3px;
+      text-decoration: line-through;
+      &_discount {
+        font-weight: 800;
+        color: var(--green-color);
+        margin-top: 5px;
       }
     }
   }
   &__excerpt {
     margin: 10px 0;
     color: var(--body-font-color);
+    font-size: 15px;
   }
 
   &__btn {
     margin-top: 20px;
+    text-align: center;
+    padding-bottom: 12px;
+    button {
+      width: 100%;
+    }
+    .btn-secondary {
+      color: var(--green-color);
+      border-color: var(--green-color);
+      &:hover {
+        color: var(--body-bg-color);
+        border-color: var(--primary-color);
+      }
+    }
   }
 }
 .items {
   grid-template-columns: auto;
   overflow: hidden;
-  gap: 50px 30px;
+  gap: 50px 20px;
   &__Section {
     padding-top: 0;
   }
@@ -106,8 +133,8 @@
     margin-left: 10px;
   }
 }
-.recommended{
-  h2{
+.recommended {
+  h2 {
     margin-bottom: 30px;
   }
 }

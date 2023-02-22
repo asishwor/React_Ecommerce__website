@@ -1,9 +1,8 @@
-import React from "react";
-import usefetch from "../customHooks/UseFetch";
+import { DataProps } from "../customHooks/UseFetch";
 import Single from "./Single";
 
-const Recommended: React.FC = () => {
-  const { data, isLoading, error } = usefetch();
+const Recommended = ({ prod }: DataProps): JSX.Element => {
+  const data = prod;
   return (
     <section className="recommended">
       <div className="container">
@@ -14,6 +13,8 @@ const Recommended: React.FC = () => {
             .map((el) => {
               return (
                 <Single
+                  category={el.category}
+                  discountPercentage={el.discountPercentage}
                   elm={el}
                   id={el.id}
                   price={el.price}
