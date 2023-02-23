@@ -4,17 +4,25 @@ import Filter from "../components/filter/Filter";
 import Items from "../components/items/Items";
 import Recommended from "../components/items/Recommended";
 import CatagoryCompo from "../components/products/CatagoryCompo";
-import usefetch, { DataProps } from "../components/customHooks/UseFetch";
+import { DataProps } from "../components/customHooks/UseFetch";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../app/Store";
 
 const Home = ({ prod }: DataProps) => {
-  // const prod = usefetch();
+  const data = useSelector((store: RootState) => store.main.data);
+
   return (
     <>
       <Banner />
       <Filter />
-      <Items prod={prod} />
+      <div className="container">
+        <div className="items">
+          <Items prod={data} />
+        </div>
+      </div>
       <Advertisement />
-      <Recommended prod={prod} />
+      {/* <Recommended prod={prod} /> */}
       <CatagoryCompo />
     </>
   );

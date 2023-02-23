@@ -1,58 +1,26 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { DataProps } from "../components/customHooks/UseFetch";
-import Single from "../components/items/Single";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   ASC,
   DESC,
-  FILTER_WITH_RATINGS,
-  FILTER_WITH_PRICE,
-  max,
   SET_FILTER,
   DEFAULT_SORTING,
-  min,
 } from "../app/slices/FilterSlices";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/Store";
 import CatagoryCompo from "../components/products/CatagoryCompo";
+import Items from "../components/items/Items";
+import Aside from "../components/Aside";
 
-const category = ({ prod }: DataProps) => {
-  const data = prod;
+const Category = () => {
+  const data = useSelector((store: RootState) => store.cart.allProducts);
   const [isGrid, setIsGrid] = useState(true);
   const { maxVal, minVal, rating, brands, toHigh, toLow, sortedData } =
     useSelector((store: RootState) => store.filter);
   const dispatch = useDispatch();
   const { category, brand } = useParams();
-  const navigate = useNavigate();
   const [catagoryList, setCatagoytList] = useState<string[]>([]);
-
-  function getStar(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-    dispatch(FILTER_WITH_RATINGS((e.target as HTMLElement).dataset.star));
-  }
-
   const [toggleSorting, setSortingToggle] = useState(false);
-  // get max price avlue
-  function getMinPrice(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(min(+e.target.value));
-  }
-
-  function getMaxPrice(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(max(+e.target.value));
-  }
-  // Routing for filter
-
-  async function onfilterByBrand(
-    e: any,
-    paramName: string,
-    paramValue: number | string | undefined
-  ) {
-    const url = await window.location.href;
-    const param = await new URLSearchParams(url);
-    const newParam = await param.append("rating", rating.toString());
-    await param.set("rating", rating.toString());
-    navigate(`${paramName}=${paramValue}`);
-    // console.log(url, param.for(const [key,value] of search));
-  }
 
   function filterItems() {
     dispatch(SET_FILTER(data.filter((el) => el.category == category)));
@@ -71,93 +39,7 @@ const category = ({ prod }: DataProps) => {
         {<CatagoryCompo />}
 
         <div className="category">
-          <div className="category__filter">
-            <h3>Category</h3>
-            <p className="category__name">{category}</p>
-            <div className="category__filter-brand">
-              {/* filter with brands name  */}
-              <h4>Brands</h4>
-              <ul>
-                {brands.map((el) => {
-                  return (
-                    <div className="brandlist" key={el}>
-                      <input
-                        type="checkbox"
-                        name={el}
-                        id=""
-                        onChange={(e) => {
-                          // onfilterByBrand(e, e.target.name, category);
-                          navigate(`/category/${category}/${e.target.name}`);
-                        }}
-                      />
-                      <span className="brand__name">{el}</span>
-                    </div>
-                  );
-                })}
-              </ul>
-            </div>
-
-            {/* Filter with ratings */}
-            <div className="category__filter-ratings">
-              <span
-                data-star="4.5"
-                onClick={(e) => {
-                  getStar;
-                  onfilterByBrand(e, "rating", rating);
-                }}
-              >
-                    
-              </span>
-              <span data-star="3.5" onClick={getStar}>
-                   <span></span>
-                <span>And Up</span>
-              </span>
-              <span data-star="2.5" onClick={getStar}>
-                  <span> </span>
-                <span>And Up</span>
-              </span>
-              <span data-star="1.5" onClick={getStar}>
-                 <span>  </span>
-                <span>And Up</span>
-              </span>
-              <span data-star="1" onClick={getStar}>
-                <span>   </span>
-                <span>And Up</span>
-              </span>
-            </div>
-
-            <div className="category__filter-price">
-              <h4>Price</h4>
-              <div className="price">
-                <form action="">
-                  <input
-                    type="number"
-                    className="min"
-                    placeholder="min"
-                    onChange={(e) => getMinPrice}
-                  />
-                  <span> - </span>
-                  <input
-                    type="number"
-                    className="min"
-                    placeholder="max"
-                    onChange={getMaxPrice}
-                  />
-
-                  <button
-                    type="submit"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      dispatch(FILTER_WITH_PRICE("price"));
-                    }}
-                  >
-                    
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-
+          <Aside />
           <div className="category__right">
             {/* category Info */}
             <div className="category__head">
@@ -231,37 +113,7 @@ const category = ({ prod }: DataProps) => {
               </div>
             </div>
             <div className={`${isGrid ? "items" : "items list"}`}>
-              {/* {isLoading && <span className="loading"></span>} */}
-              {sortedData.map((prod) => {
-                const {
-                  brand,
-                  id,
-                  category,
-                  price,
-                  rating,
-                  thumbnail,
-                  title,
-                  discountPercentage,
-                  description,
-                  images,
-                } = prod;
-                return (
-                  <Single
-                    category=""
-                    brand=""
-                    key={id}
-                    elm={prod}
-                    id={id}
-                    price={price}
-                    rating={rating}
-                    thumbnail={thumbnail}
-                    title={title}
-                    description={description}
-                    images={images}
-                    discountPercentage={discountPercentage}
-                  />
-                );
-              })}
+              <Items prod={sortedData} />
             </div>
           </div>
         </div>
@@ -270,4 +122,4 @@ const category = ({ prod }: DataProps) => {
   );
 };
 
-export default category;
+export default Category;

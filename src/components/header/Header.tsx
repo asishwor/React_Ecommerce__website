@@ -8,7 +8,6 @@ import { RootState } from "../../app/Store";
 import { DataProps } from "../customHooks/UseFetch";
 
 const Header = ({ prod }: DataProps) => {
-  const data = prod;
   const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false);
   const [top, setTop] = useState<number | undefined>(0);
   const catagory = usefetchCatagory();
