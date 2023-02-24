@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { RootState } from "../../app/Store";
 
 export default function usefetchCatagory() {
   const [catagories, setCatagories] = useState<string[]>([]);
   const data = useSelector((state: RootState) => {
-    return state.cart.allProducts;
+    return state.main.data;
   });
 
   async function findCata() {
     let cata: string[] = [];
-    await data.map((el) => {
+    data.map((el) => {
       cata.push(el.category);
     });
-    await setCatagories([...new Set(cata)]);
+    setCatagories([...new Set(cata)]);
   }
 
   useEffect(() => {
     findCata();
   }, [data]);
+  console.log(catagories);
 
   return catagories;
 }

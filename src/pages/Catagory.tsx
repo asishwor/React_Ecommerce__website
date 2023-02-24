@@ -13,7 +13,7 @@ import Items from "../components/items/Items";
 import Aside from "../components/Aside";
 
 const Category = () => {
-  const data = useSelector((store: RootState) => store.cart.allProducts);
+  const data = useSelector((store: RootState) => store.main.data);
   const [isGrid, setIsGrid] = useState(true);
   const { maxVal, minVal, rating, brands, toHigh, toLow, sortedData } =
     useSelector((store: RootState) => store.filter);
@@ -29,6 +29,8 @@ const Category = () => {
   // get set catagory list & render page on chenges
   useEffect(() => {
     filterItems();
+    console.log(data);
+
     sortedData.map((el) => setCatagoytList([...catagoryList, el.brand]));
   }, [category, data, brand, rating, maxVal]);
 

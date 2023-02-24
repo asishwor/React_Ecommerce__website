@@ -6,7 +6,7 @@ import { RootState } from "../../app/Store";
 
 const CatagoryCompo = () => {
   const catagories = usefetchCatagory();
-  const datas = useSelector((store: RootState) => store.cart.allProducts);
+  const data = useSelector((store: RootState) => store.main.data);
 
   return (
     <>
@@ -22,7 +22,7 @@ const CatagoryCompo = () => {
                 className="catagories__item"
               >
                 <img
-                  src={datas.filter((e) => e.category == el)[1].thumbnail}
+                  src={data.filter((e) => e.category == el)[1].thumbnail}
                   alt=""
                 />
                 <span> {el}</span>
