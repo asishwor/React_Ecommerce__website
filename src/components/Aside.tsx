@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   FILTER_WITH_PRICE,
   FILTER_WITH_RATINGS,
@@ -17,7 +18,9 @@ const Aside = () => {
     useSelector((store: RootState) => store.filter);
 
   function getStar(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-    dispatch(FILTER_WITH_RATINGS((e.target as HTMLElement).dataset.star));
+    dispatch(
+      FILTER_WITH_RATINGS(Number((e.target as HTMLElement).dataset.star))
+    );
   }
 
   function getMinPrice(e: React.ChangeEvent<HTMLInputElement>) {
@@ -44,7 +47,7 @@ const Aside = () => {
                   name={el}
                   id=""
                   onChange={(e) => {
-                    navigate(`/category/${category}/${e.target.name}`);
+                    navigate(`/category/${category}/brand-${e.target.name}`);
                   }}
                 />
                 <span className="brand__name">{el}</span>
@@ -56,27 +59,29 @@ const Aside = () => {
 
       {/* Filter with ratings */}
       <div className="category__filter-ratings">
-        <span
-          data-star="4.5"
-          onClick={(e) => {
-            getStar;
-          }}
-        >
-              
-        </span>
-        <span data-star="3.5" onClick={getStar}>
+        <Link to={`/category/${category}/?rating:${rating}`}>
+          <span
+            data-star="4.6"
+            onClick={(e) => {
+              getStar(e);
+            }}
+          >
+                
+          </span>
+        </Link>
+        <span data-star="3.5" onClick={(e) => getStar(e)}>
              <span></span>
           <span>And Up</span>
         </span>
-        <span data-star="2.5" onClick={getStar}>
+        <span data-star="2.5" onClick={(e) => getStar(e)}>
             <span> </span>
           <span>And Up</span>
         </span>
-        <span data-star="1.5" onClick={getStar}>
+        <span data-star="1.5" onClick={(e) => getStar(e)}>
            <span>  </span>
           <span>And Up</span>
         </span>
-        <span data-star="1" onClick={getStar}>
+        <span data-star="1" onClick={(e) => getStar(e)}>
           <span>   </span>
           <span>And Up</span>
         </span>

@@ -22,6 +22,14 @@
   .category__head {
     flex-direction: column;
     align-items: flex-start;
+    .brand__name {
+      color: var(--orange-color);
+      cursor: pointer;
+      padding: 2px 12px;
+      background-color: var(--hover-color);
+      border-radius: 30px;
+      margin-right: 7px;
+    }
     h4 {
       font-weight: 600;
       font-family: inherit;

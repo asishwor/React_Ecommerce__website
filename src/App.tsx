@@ -11,7 +11,7 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import InnerFilter from "./components/InnerFilter";
 import Wishlist from "./components/Wishlist";
-import Catagory from "./pages/Catagory";
+import Catagory from "./pages/Category";
 import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
 import Singlepage from "./pages/Singlepage";
@@ -60,7 +60,7 @@ function App() {
           path="/products/:productID/:productTitle/"
           element={<Singlepage />}
         />
-        <Route path="/catagory/:category" element={<Catagory />} />
+        <Route path="/category/:category" element={<Catagory />} />
         <Route path="/category/:category/:brand" element={<InnerFilter />} />
         <Route path="/catalog" element={<SearchPage />} />
       </Routes>

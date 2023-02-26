@@ -18,8 +18,8 @@ export default function usefetchCatagory() {
 
   useEffect(() => {
     findCata();
+    console.log(catagories);
   }, [data]);
-  console.log(catagories);
 
   return catagories;
 }

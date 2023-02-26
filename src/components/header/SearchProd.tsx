@@ -12,12 +12,8 @@ const SearchProd = () => {
     const searchFunction = setInterval(() => {
       dispatch(search(e.target.value));
     }, 4500);
-
-    if (searchFunction) {
-      console.log("active");
-    } else {
-      console.log("close");
-    }
+  
+    
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

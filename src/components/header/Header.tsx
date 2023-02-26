@@ -82,31 +82,23 @@ const Header = ({ prod }: DataProps) => {
                 onClick={() => setIsMobileMenu(!isMobileMenu)}
               >
                 <li>
-                  <NavLink to="">Catagories </NavLink>
+                  <NavLink to="/">Home</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/category/smartphones">Categories </NavLink>
                   <ul>
                     {catagory.map((el) => (
                       <li key={el}>
-                        <Link to={`/catagory/${el}`}>{el}</Link>
+                        <Link to={`/category/${el}`}>{el}</Link>
                       </li>
                     ))}
                   </ul>
                 </li>
                 <li>
-                  <NavLink to="">Deals</NavLink>
-                </li>
-                <li>
-                  <NavLink to="">What's new</NavLink>
-                </li>
-                <li>
-                  <NavLink to="">Delivery</NavLink>
+                  <NavLink to="/wishlist">Wishlist</NavLink>
                 </li>
                 <li>
                   <NavLink to="/cart">Cart-{amount}</NavLink>
-                  <ul>
-                    <li>
-                      <NavLink to="/wishlist">Wishlist</NavLink>
-                    </li>
-                  </ul>
                 </li>
               </ul>
               {/* search prod  */}

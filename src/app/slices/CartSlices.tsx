@@ -5,14 +5,12 @@ import { ProdTypes } from "../../components/customHooks/UseFetch";
 interface StateTypes {
   cart: ProdTypes[];
   favourite: ProdTypes[];
-  allProducts: ProdTypes[];
   isAdded: boolean;
   amount: number;
 }
 
 // intial state
 const initialState: StateTypes = {
-  allProducts: [],
   cart: [],
   amount: 0,
   isAdded: false,
@@ -31,9 +29,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     // Cart
-    FETCH_DATA: (state, action) => {
-      state.allProducts = action.payload;
-    },
 
     ADD_TO_CART: (state, action: ActionType) => {
       state.cart = [
@@ -80,6 +75,5 @@ export const {
   REMOVE_FROM_FAVOURITE,
   ADD_CART_ALERT,
   REMOVE_CART_ALERT,
-  FETCH_DATA,
 } = cartSlice.actions;
 export default cartSlice.reducer;

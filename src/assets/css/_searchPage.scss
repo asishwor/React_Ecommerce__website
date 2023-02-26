@@ -1,0 +1,13 @@
+@use "./media" as *;
+
+.searchPage {
+  display: flex;
+  @include mq(sm) {
+    .items {
+      width: 66%;
+    }
+  }
+  .items {
+    width: 100%;
+  }
+}

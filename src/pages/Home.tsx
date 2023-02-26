@@ -3,7 +3,7 @@ import Banner from "../components/Banner";
 import Filter from "../components/filter/Filter";
 import Items from "../components/items/Items";
 import Recommended from "../components/items/Recommended";
-import CatagoryCompo from "../components/products/CatagoryCompo";
+import CatagoryCompo from "../components/products/CategoryCompo";
 import { DataProps } from "../components/customHooks/UseFetch";
 
 import { useSelector } from "react-redux";

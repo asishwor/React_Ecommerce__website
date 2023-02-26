@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../../assets/css/items.scss";
 import StarRating from "./StarRating";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -27,11 +28,10 @@ const Single = ({
 }: SingPropsType) => {
   // cart from redux store
   const dispatch = useDispatch();
-
   const [isFavourite, setIsfavourite] = useState<boolean>(false);
   const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
   return (
-    <Link to={`/products/${id}/${title}`}>
+    <Link to={`/products/${id}/${title}/?tit=${title}&rating:${rating}`}>
       <div
         className="card"
         onDoubleClick={(e) => {
@@ -76,6 +76,7 @@ const Single = ({
               रु.{price}
               .00
             </span>
+
             <span className="price_discount">
               रु
               {Math.floor(
@@ -90,6 +91,7 @@ const Single = ({
             <StarRating star={rating} />
           </div>
         </div>
+
         <div className="card__btn">
           {isAddedToCart && (
             <button
@@ -111,10 +113,8 @@ const Single = ({
               onClick={(e) => {
                 // e.stopPropagation();
                 e.preventDefault();
-
                 setIsAddedToCart(true);
                 alert("This item added to cart");
-
                 dispatch(ADD_TO_CART(elm));
               }}
             >

@@ -6,7 +6,7 @@ import usefetch from "../components/customHooks/UseFetch";
 import StarRating from "../components/items/StarRating";
 
 const Singlepage = () => {
-  const data = useSelector((state: RootState) => state.cart.allProducts);
+  const data = useSelector((state: RootState) => state.main.data);
   const { productTitle } = useParams();
 
   const sliderRef = useRef<HTMLDivElement>(null);

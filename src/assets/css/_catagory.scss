@@ -67,9 +67,11 @@
   }
   &__filter {
     padding-right: 20px;
-    position: sticky;
     top: 100px;
     align-self: self-start;
+    @include mq(sm) {
+      position: sticky;
+    }
 
     // filter with brand
     &-brand {
@@ -233,12 +235,15 @@
 // catagory component stylings
 .catagories {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
   margin-top: 30px;
   background-color: var(--primary-color);
   border-radius: 3px;
+  grid-auto-flow: 200px;
   overflow: hidden;
   color: var(--body-bg-color);
+  @include mq(sm) {
+    grid-auto-flow: column;
+  }
   &__item {
     display: flex;
     align-items: center;

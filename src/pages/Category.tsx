@@ -8,18 +8,18 @@ import {
 } from "../app/slices/FilterSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/Store";
-import CatagoryCompo from "../components/products/CatagoryCompo";
+import CatagoryCompo from "../components/products/CategoryCompo";
 import Items from "../components/items/Items";
 import Aside from "../components/Aside";
 
 const Category = () => {
   const data = useSelector((store: RootState) => store.main.data);
   const [isGrid, setIsGrid] = useState(true);
-  const { maxVal, minVal, rating, brands, toHigh, toLow, sortedData } =
-    useSelector((store: RootState) => store.filter);
+  const { maxVal, rating, brands, toHigh, toLow, sortedData } = useSelector(
+    (store: RootState) => store.filter
+  );
   const dispatch = useDispatch();
   const { category, brand } = useParams();
-  const [catagoryList, setCatagoytList] = useState<string[]>([]);
   const [toggleSorting, setSortingToggle] = useState(false);
 
   function filterItems() {
@@ -27,12 +27,11 @@ const Category = () => {
   }
 
   // get set catagory list & render page on chenges
+
   useEffect(() => {
     filterItems();
-    console.log(data);
-
-    sortedData.map((el) => setCatagoytList([...catagoryList, el.brand]));
-  }, [category, data, brand, rating, maxVal]);
+    console.log("repeat");
+  }, [data, brand, rating]);
 
   return (
     <section className="category__section">

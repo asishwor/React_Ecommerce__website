@@ -1,6 +1,5 @@
 import usefetchCatagory from "../customHooks/useFetchCatagory";
 import { Link } from "react-router-dom";
-import { DataProps } from "../customHooks/UseFetch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/Store";
 
@@ -12,12 +11,12 @@ const CatagoryCompo = () => {
     <>
       <section className="catagory__section">
         <div className="container">
-          <h2>Catagory</h2>
+          <h2>Category</h2>
 
           <div className="catagories">
             {catagories.map((el, i) => (
               <Link
-                to={`/catagory/${el}`}
+                to={`/category/${el}`}
                 key={el}
                 className="catagories__item"
               >
